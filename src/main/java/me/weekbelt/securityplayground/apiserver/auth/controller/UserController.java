@@ -2,8 +2,10 @@ package me.weekbelt.securityplayground.apiserver.auth.controller;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import me.weekbelt.securityplayground.apiserver.auth.dto.RoleResponse;
 import me.weekbelt.securityplayground.apiserver.auth.dto.UserResponse;
 import me.weekbelt.securityplayground.apiserver.auth.dto.UserSaveRequest;
+import me.weekbelt.securityplayground.apiserver.auth.service.RoleService;
 import me.weekbelt.securityplayground.apiserver.auth.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +22,14 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class UserController {
 
     private final UserService userService;
+
+    private final RoleService roleService;
+
+    @PostMapping("/v1/auth/roles")
+    @ResponseStatus(value = HttpStatus.CREATED)
+    public RoleResponse createRole(@RequestBody String role) {
+        return roleService.save(role);
+    }
 
     @PostMapping("/v1/auth/users")
     @ResponseStatus(value = HttpStatus.CREATED)

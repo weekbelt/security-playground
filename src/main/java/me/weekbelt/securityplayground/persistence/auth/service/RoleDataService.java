@@ -16,4 +16,8 @@ public class RoleDataService {
         return roleRepository.findByRoleName(roleName)
             .orElseThrow(() -> new EntityNotFoundException("Cannot find roleName : " + roleName));
     }
+
+    public Role save(Role role) {
+        return roleRepository.save(role);
+    }
 }

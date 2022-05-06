@@ -55,6 +55,23 @@ public class UserControllerTest {
     }
 
     @Test
+    @DisplayName("Role 생성")
+    public void create_role_manager() throws Exception {
+        // given
+        String role = "ROLE_MANAGER";
+
+        // when
+        ResultActions resultActions = mockMvc.perform(post("/admin/v1/auth/roles")
+            .contentType(MediaType.APPLICATION_JSON_VALUE)
+            .content(role));
+
+        // then
+        resultActions
+            .andDo(print())
+            .andExpect(status().isCreated());
+    }
+
+    @Test
     @DisplayName("회원가입")
     public void join_success() throws Exception {
         // given
