@@ -8,8 +8,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
 import javax.transaction.Transactional;
-import me.weekbelt.securityplayground.apiserver.auth.dto.UserSaveRequest;
-import me.weekbelt.securityplayground.apiserver.auth.service.UserService;
+import me.weekbelt.securityplayground.apiserver.auth.dto.MemberSaveRequest;
+import me.weekbelt.securityplayground.apiserver.auth.service.MemberService;
 import me.weekbelt.securityplayground.persistence.auth.Role;
 import me.weekbelt.securityplayground.persistence.auth.repository.RoleRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,7 +27,7 @@ import org.springframework.test.web.servlet.ResultActions;
 @ActiveProfiles("test")
 @SpringBootTest
 @AutoConfigureMockMvc
-public class UserControllerTest {
+public class MemberControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -39,7 +39,7 @@ public class UserControllerTest {
     private RoleRepository roleRepository;
 
     @Autowired
-    private UserService userService;
+    private MemberService memberService;
 
     @BeforeEach
     public void initRole() {
@@ -75,18 +75,18 @@ public class UserControllerTest {
     @DisplayName("회원가입")
     public void join_success() throws Exception {
         // given
-        UserSaveRequest userSaveRequest = UserSaveRequest.builder()
+        MemberSaveRequest memberSaveRequest = MemberSaveRequest.builder()
             .username("weekbelt")
             .name("김주혁")
             .password("1234")
             .roles(List.of("ROLE_USER", "ROLE_ADMIN"))
             .build();
-        System.out.println(objectMapper.writeValueAsString(userSaveRequest));
+        System.out.println(objectMapper.writeValueAsString(memberSaveRequest));
 
         // when
         ResultActions resultActions = mockMvc.perform(post("/admin/v1/auth/users")
             .contentType(MediaType.APPLICATION_JSON_VALUE)
-            .content(objectMapper.writeValueAsString(userSaveRequest)));
+            .content(objectMapper.writeValueAsString(memberSaveRequest)));
 
         // then
         resultActions
@@ -99,13 +99,13 @@ public class UserControllerTest {
     @DisplayName("전체 회원 리스트 호출")
     public void get_all_users() throws Exception {
         // given
-        UserSaveRequest userSaveRequest = UserSaveRequest.builder()
+        MemberSaveRequest memberSaveRequest = MemberSaveRequest.builder()
             .username("weekbelt")
             .name("김주혁")
             .password("1234")
             .roles(List.of("ROLE_USER", "ROLE_ADMIN"))
             .build();
-        userService.save(userSaveRequest);
+        memberService.save(memberSaveRequest);
 
         // when
         ResultActions resultActions = mockMvc.perform(get("/admin/v1/auth/users"));

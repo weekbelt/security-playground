@@ -26,7 +26,7 @@ public class Role {
     private String roleName;
 
     @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
-    private List<UserRole> userRoles = new ArrayList<>();
+    private List<MemberRole> memberRoles = new ArrayList<>();
 
     @Builder
     public Role(String roleName) {

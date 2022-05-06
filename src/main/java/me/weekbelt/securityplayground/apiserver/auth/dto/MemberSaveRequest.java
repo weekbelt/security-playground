@@ -12,7 +12,7 @@ import org.hibernate.validator.constraints.Range;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserSaveRequest {
+public class MemberSaveRequest {
 
     @NotBlank
     @Range(min = 4, max = 20)

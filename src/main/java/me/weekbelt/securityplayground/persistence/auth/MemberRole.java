@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @Entity
-public class UserRole extends BaseTimeEntity {
+public class MemberRole extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,26 +20,26 @@ public class UserRole extends BaseTimeEntity {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private Member member;
 
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
 
-    public void setUser(User user) {
-        if (this.user != null) {
-            this.user.getUserRoles().remove(this);
+    public void setMember(Member member) {
+        if (this.member != null) {
+            this.member.getMemberRoles().remove(this);
         }
-        this.user = user;
-        user.getUserRoles().add(this);
+        this.member = member;
+        member.getMemberRoles().add(this);
     }
 
     public void setRole(Role role) {
         if (this.role != null) {
-            this.role.getUserRoles().remove(this);
+            this.role.getMemberRoles().remove(this);
         }
 
         this.role = role;
-        role.getUserRoles().add(this);
+        role.getMemberRoles().add(this);
     }
 }

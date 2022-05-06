@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @Entity
-public class User extends BaseTimeEntity {
+public class Member extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -32,16 +32,16 @@ public class User extends BaseTimeEntity {
     private String name;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private Set<UserRole> userRoles = new HashSet<>();
+    private Set<MemberRole> memberRoles = new HashSet<>();
 
     @Builder
-    public User(String username, String password, String name) {
+    public Member(String username, String password, String name) {
         this.username = username;
         this.password = password;
         this.name = name;
     }
 
-    public void addUserRoles(Set<UserRole> userRoles) {
-        this.userRoles.addAll(userRoles);
+    public void addUserRoles(Set<MemberRole> memberRoles) {
+        this.memberRoles.addAll(memberRoles);
     }
 }

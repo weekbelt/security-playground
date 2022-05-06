@@ -2,10 +2,10 @@ package me.weekbelt.securityplayground.apiserver.auth.controller;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import me.weekbelt.securityplayground.apiserver.auth.dto.MemberResponse;
+import me.weekbelt.securityplayground.apiserver.auth.dto.MemberSaveRequest;
 import me.weekbelt.securityplayground.apiserver.auth.dto.RoleResponse;
-import me.weekbelt.securityplayground.apiserver.auth.dto.UserResponse;
-import me.weekbelt.securityplayground.apiserver.auth.dto.UserSaveRequest;
-import me.weekbelt.securityplayground.apiserver.auth.service.UserService;
+import me.weekbelt.securityplayground.apiserver.auth.service.MemberService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -18,25 +18,24 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @RequiredArgsConstructor
 @Controller
 @RequestMapping("/admin")
-public class UserController {
+public class MemberController {
 
-    private final UserService userService;
+    private final MemberService memberService;
 
     @PostMapping("/v1/auth/roles")
     @ResponseStatus(value = HttpStatus.CREATED)
     public RoleResponse createRole(@RequestBody String role) {
-        return userService.save(role);
+        return memberService.save(role);
     }
 
     @PostMapping("/v1/auth/users")
     @ResponseStatus(value = HttpStatus.CREATED)
-    public UserResponse join(@RequestBody UserSaveRequest userSaveRequest) {
-        return userService.save(userSaveRequest);
+    public MemberResponse join(@RequestBody MemberSaveRequest memberSaveRequest) {
+        return memberService.save(memberSaveRequest);
     }
 
     @GetMapping("/v1/auth/users")
-    public ResponseEntity<List<UserResponse>> getUsers() {
-        List<UserResponse> userResponses = userService.getUsers();
-        return ResponseEntity.ok().body(userResponses);
+    public ResponseEntity<List<MemberResponse>> getMembers() {
+        return ResponseEntity.ok().body(memberService.getMembers());
     }
 }

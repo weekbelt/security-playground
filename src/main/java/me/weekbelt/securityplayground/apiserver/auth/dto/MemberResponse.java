@@ -8,7 +8,7 @@ import lombok.Getter;
 @Builder
 @Getter
 @AllArgsConstructor
-public class UserResponse {
+public class MemberResponse {
 
     private Long id;
 
