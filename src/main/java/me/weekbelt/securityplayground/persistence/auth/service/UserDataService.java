@@ -1,5 +1,6 @@
 package me.weekbelt.securityplayground.persistence.auth.service;
 
+import java.util.List;
 import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import me.weekbelt.securityplayground.persistence.auth.User;
@@ -15,5 +16,9 @@ public class UserDataService {
 
     public User save(User user) {
         return userRepository.save(user);
+    }
+
+    public List<User> getUsers() {
+        return userRepository.findAll();
     }
 }

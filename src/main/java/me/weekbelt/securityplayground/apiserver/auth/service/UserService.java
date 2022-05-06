@@ -1,10 +1,10 @@
 package me.weekbelt.securityplayground.apiserver.auth.service;
 
+import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toSet;
 
 import java.util.List;
 import java.util.Set;
-import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import me.weekbelt.securityplayground.apiserver.auth.dto.UserResponse;
 import me.weekbelt.securityplayground.apiserver.auth.dto.UserSaveRequest;
@@ -17,6 +17,7 @@ import me.weekbelt.securityplayground.persistence.auth.service.UserDataService;
 import me.weekbelt.securityplayground.persistence.auth.service.UserRoleDataService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
@@ -52,5 +53,12 @@ public class UserService {
                 Role role = roleDataService.getByRoleName(roleName);
                 return UserMapper.toUserRole(user, role);
             }).collect(toSet());
+    }
+
+    @Transactional(readOnly = true)
+    public List<UserResponse> getUsers() {
+        return userDataService.getUsers()
+            .stream().map(UserMapper::toUserResponseDto)
+            .collect(toList());
     }
 }
