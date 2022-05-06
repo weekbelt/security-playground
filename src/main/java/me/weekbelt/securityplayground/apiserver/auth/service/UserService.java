@@ -6,11 +6,13 @@ import static java.util.stream.Collectors.toSet;
 import java.util.List;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
+import me.weekbelt.securityplayground.apiserver.auth.dto.RoleResponse;
 import me.weekbelt.securityplayground.apiserver.auth.dto.UserResponse;
 import me.weekbelt.securityplayground.apiserver.auth.dto.UserSaveRequest;
 import me.weekbelt.securityplayground.persistence.auth.Role;
 import me.weekbelt.securityplayground.persistence.auth.User;
 import me.weekbelt.securityplayground.persistence.auth.UserRole;
+import me.weekbelt.securityplayground.persistence.auth.mapper.RoleMapper;
 import me.weekbelt.securityplayground.persistence.auth.mapper.UserMapper;
 import me.weekbelt.securityplayground.persistence.auth.service.RoleDataService;
 import me.weekbelt.securityplayground.persistence.auth.service.UserDataService;
@@ -30,6 +32,15 @@ public class UserService {
     private final RoleDataService roleDataService;
 
     private final PasswordEncoder passwordEncoder;
+
+    @Transactional
+    public RoleResponse save(String roleName) {
+        Role role = Role.builder()
+            .roleName(roleName)
+            .build();
+        Role savedRole = roleDataService.save(role);
+        return RoleMapper.toRoleResponse(savedRole);
+    }
 
     @Transactional
     public UserResponse save(UserSaveRequest userSaveRequest) {
