@@ -1,14 +1,39 @@
 package me.weekbelt.securityplayground.persistence.auth;
 
-import lombok.AllArgsConstructor;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
 @Getter
-public enum UserRole {
+@NoArgsConstructor
+@Entity
+public class UserRole extends BaseTimeEntity {
 
-    ROLE_USER("ROLE_USER"),
-    ROLE_ADMIN("ROLE_ADMIN");
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-    private final String authority;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    private Role role;
+
+    public void setUser(User user) {
+        this.user = user;
+        user.getUserRoles().add(this);
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+        role.getUserRoles().add(this);
+    }
 }

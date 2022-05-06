@@ -1,12 +1,14 @@
 package me.weekbelt.securityplayground.persistence.auth;
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,17 +29,19 @@ public class User extends BaseTimeEntity {
     private String password;
 
     @Column
-    private String nickname;
+    private String name;
 
-    @Column(nullable = false, length = 50)
-    @Enumerated(EnumType.STRING)
-    private UserRole role;
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private Set<UserRole> userRoles = new HashSet<>();
 
     @Builder
-    public User(String username, String password, String nickname, UserRole role) {
+    public User(String username, String password, String name) {
         this.username = username;
         this.password = password;
-        this.nickname = nickname;
-        this.role = role;
+        this.name = name;
+    }
+
+    public void addUserRoles(Set<UserRole> userRoles) {
+        this.userRoles.addAll(userRoles);
     }
 }
