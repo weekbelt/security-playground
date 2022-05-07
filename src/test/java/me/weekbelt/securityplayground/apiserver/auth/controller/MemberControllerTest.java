@@ -29,6 +29,8 @@ import org.springframework.test.web.servlet.ResultActions;
 @AutoConfigureMockMvc
 public class MemberControllerTest {
 
+    private static final String BASE_PATH = "/admin/v1/auth";
+
     @Autowired
     private MockMvc mockMvc;
 
@@ -61,7 +63,7 @@ public class MemberControllerTest {
         String role = "ROLE_MANAGER";
 
         // when
-        ResultActions resultActions = mockMvc.perform(post("/admin/v1/auth/roles")
+        ResultActions resultActions = mockMvc.perform(post(BASE_PATH + "/roles")
             .contentType(MediaType.APPLICATION_JSON_VALUE)
             .content(role));
 
@@ -84,7 +86,7 @@ public class MemberControllerTest {
         System.out.println(objectMapper.writeValueAsString(memberSaveRequest));
 
         // when
-        ResultActions resultActions = mockMvc.perform(post("/admin/v1/auth/users")
+        ResultActions resultActions = mockMvc.perform(post(BASE_PATH + "/members")
             .contentType(MediaType.APPLICATION_JSON_VALUE)
             .content(objectMapper.writeValueAsString(memberSaveRequest)));
 
@@ -108,7 +110,7 @@ public class MemberControllerTest {
         memberService.save(memberSaveRequest);
 
         // when
-        ResultActions resultActions = mockMvc.perform(get("/admin/v1/auth/users"));
+        ResultActions resultActions = mockMvc.perform(get(BASE_PATH + "/members"));
 
         // then
         resultActions

@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 public class Member extends BaseTimeEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false, unique = true)
@@ -31,7 +31,7 @@ public class Member extends BaseTimeEntity {
     @Column
     private String name;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
     private Set<MemberRole> memberRoles = new HashSet<>();
 
     @Builder

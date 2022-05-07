@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @RequiredArgsConstructor
@@ -24,17 +25,17 @@ public class MemberController {
 
     @PostMapping("/v1/auth/roles")
     @ResponseStatus(value = HttpStatus.CREATED)
-    public RoleResponse createRole(@RequestBody String role) {
+    public RoleResponse createRole(@RequestParam String role) {
         return memberService.save(role);
     }
 
-    @PostMapping("/v1/auth/users")
+    @PostMapping("/v1/auth/members")
     @ResponseStatus(value = HttpStatus.CREATED)
     public MemberResponse join(@RequestBody MemberSaveRequest memberSaveRequest) {
         return memberService.save(memberSaveRequest);
     }
 
-    @GetMapping("/v1/auth/users")
+    @GetMapping("/v1/auth/members")
     public ResponseEntity<List<MemberResponse>> getMembers() {
         return ResponseEntity.ok().body(memberService.getMembers());
     }
