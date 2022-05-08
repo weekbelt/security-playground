@@ -1,4 +1,4 @@
-package me.weekbelt.securityplayground.apiserver.auth.filter;
+package me.weekbelt.securityplayground.apiserver.auth.common;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;

@@ -1,7 +1,10 @@
 package me.weekbelt.securityplayground.apiserver.auth;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.security.Keys;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
@@ -14,6 +17,7 @@ import me.weekbelt.securityplayground.apiserver.auth.dto.TokenDto;
 import me.weekbelt.securityplayground.persistence.auth.Member;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 @Slf4j
 @Component
@@ -55,6 +59,13 @@ public class TokenProvider {
             .compact();
     }
 
+    public void verifyToken(String token) {
+        Jwts.parserBuilder()
+            .setSigningKey(getSecretKey())
+            .build()
+            .parseClaimsJws(token);
+    }
+
     private Map<String, Object> getHeader() {
         Map<String, Object> headers = new HashMap<>();
         headers.put("alg", "HS256");
@@ -62,7 +73,30 @@ public class TokenProvider {
         return headers;
     }
 
+
     private SecretKey getSecretKey() {
         return Keys.hmacShaKeyFor(SECRET_KEY.getBytes(StandardCharsets.UTF_8));
+    }
+
+    public String getTokenFromAuthHeader(String authHeaderValue) {
+        if (!StringUtils.hasText(authHeaderValue)) {
+            throw new IllegalArgumentException("Authorization header is blank");
+        }
+
+        if (!authHeaderValue.startsWith("Bearer ")) {
+            throw new UnsupportedJwtException("This token is not bearer type");
+        }
+
+        return authHeaderValue.split(" ")[1];
+    }
+
+    public String getUsername(String token) {
+        Jws<Claims> claimsJws = Jwts.parserBuilder()
+            .setSigningKey(getSecretKey())
+            .build()
+            .parseClaimsJws(token);
+
+        Claims body = claimsJws.getBody();
+        return body.get("username", String.class);
     }
 }

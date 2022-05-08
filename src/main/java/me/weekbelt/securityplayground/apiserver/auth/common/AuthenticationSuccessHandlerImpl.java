@@ -1,4 +1,4 @@
-package me.weekbelt.securityplayground.apiserver.auth.filter;
+package me.weekbelt.securityplayground.apiserver.auth.common;
 
 import static java.util.stream.Collectors.toList;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -18,6 +18,8 @@ import me.weekbelt.securityplayground.apiserver.auth.dto.TokenDto;
 import me.weekbelt.securityplayground.persistence.auth.Member;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @Slf4j
@@ -35,6 +37,8 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
         List<String> roles = getRoles(memberContext);
 
         log.info("Authentication Success! username: {}", member.getUsername());
+//
+//        setContextHolder(authentication);
 
         setResponse(response, tokenProvider.createTokenDto(member, roles));
     }
@@ -43,6 +47,12 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
         return memberContext.getAuthorities().stream()
             .map(GrantedAuthority::getAuthority)
             .collect(toList());
+    }
+
+    private void setContextHolder(Authentication authentication) {
+        SecurityContext context = SecurityContextHolder.createEmptyContext();
+        context.setAuthentication(authentication);
+        SecurityContextHolder.setContext(context);
     }
 
     private void setResponse(HttpServletResponse response, TokenDto tokenDto) throws IOException {

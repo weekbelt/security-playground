@@ -19,6 +19,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         log.info("Username is: {}", username);
 
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
+        super.setDetails(request, authenticationToken);
         return super.getAuthenticationManager().authenticate(authenticationToken);
     }
 }
