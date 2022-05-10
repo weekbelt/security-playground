@@ -1,4 +1,4 @@
-package me.weekbelt.securityplayground.persistence.auth;
+package me.weekbelt.securityplayground.persistence.auth.entity;
 
 import java.util.HashSet;
 import java.util.Set;

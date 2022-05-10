@@ -14,7 +14,7 @@ import java.util.Map;
 import javax.crypto.SecretKey;
 import lombok.extern.slf4j.Slf4j;
 import me.weekbelt.securityplayground.apiserver.auth.dto.TokenDto;
-import me.weekbelt.securityplayground.persistence.auth.Member;
+import me.weekbelt.securityplayground.persistence.auth.entity.Member;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;

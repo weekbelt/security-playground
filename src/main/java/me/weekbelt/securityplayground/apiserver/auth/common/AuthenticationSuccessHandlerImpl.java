@@ -15,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import me.weekbelt.securityplayground.apiserver.auth.TokenProvider;
 import me.weekbelt.securityplayground.apiserver.auth.dto.MemberContext;
 import me.weekbelt.securityplayground.apiserver.auth.dto.TokenDto;
-import me.weekbelt.securityplayground.persistence.auth.Member;
+import me.weekbelt.securityplayground.persistence.auth.entity.Member;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;

@@ -1,7 +1,9 @@
-package me.weekbelt.securityplayground.persistence.auth;
+package me.weekbelt.securityplayground.persistence.auth.entity;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -32,4 +34,7 @@ public class Role extends BaseTimeEntity {
     public Role(String roleName) {
         this.roleName = roleName;
     }
+
+    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
+    private Set<RoleResources> roleResources = new HashSet<>();
 }

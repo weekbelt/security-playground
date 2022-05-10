@@ -1,4 +1,4 @@
-package me.weekbelt.securityplayground.persistence.auth;
+package me.weekbelt.securityplayground.persistence.auth.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

@@ -43,7 +43,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         try {
             tokenProvider.verifyToken(accessToken);
         } catch (RuntimeException e) {
-            log.info("token excepton : {}", e.getMessage());
+            log.info("token exception : {}", e.getMessage());
             request.setAttribute("exception", e);
         }
 

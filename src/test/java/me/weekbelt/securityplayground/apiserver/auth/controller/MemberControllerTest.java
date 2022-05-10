@@ -10,7 +10,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 import me.weekbelt.securityplayground.apiserver.auth.dto.MemberSaveRequest;
 import me.weekbelt.securityplayground.apiserver.auth.service.MemberService;
-import me.weekbelt.securityplayground.persistence.auth.Role;
+import me.weekbelt.securityplayground.persistence.auth.entity.Role;
 import me.weekbelt.securityplayground.persistence.auth.repository.RoleRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

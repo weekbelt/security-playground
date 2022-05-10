@@ -4,7 +4,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import me.weekbelt.securityplayground.persistence.auth.Member;
+import me.weekbelt.securityplayground.persistence.auth.entity.Member;
 import me.weekbelt.securityplayground.persistence.auth.repository.MemberRepository;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;

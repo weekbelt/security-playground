@@ -2,7 +2,7 @@ package me.weekbelt.securityplayground.persistence.auth.service;
 
 import javax.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import me.weekbelt.securityplayground.persistence.auth.Role;
+import me.weekbelt.securityplayground.persistence.auth.entity.Role;
 import me.weekbelt.securityplayground.persistence.auth.repository.RoleRepository;
 import org.springframework.stereotype.Service;
 

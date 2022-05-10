@@ -1,4 +1,4 @@
-package me.weekbelt.securityplayground.persistence.auth;
+package me.weekbelt.securityplayground.persistence.auth.entity;
 
 import java.time.LocalDateTime;
 import javax.persistence.EntityListeners;

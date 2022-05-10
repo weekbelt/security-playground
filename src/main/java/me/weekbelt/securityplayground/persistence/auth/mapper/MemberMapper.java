@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 import me.weekbelt.securityplayground.apiserver.auth.dto.MemberResponse;
 import me.weekbelt.securityplayground.apiserver.auth.dto.MemberSaveRequest;
-import me.weekbelt.securityplayground.persistence.auth.Member;
-import me.weekbelt.securityplayground.persistence.auth.MemberRole;
-import me.weekbelt.securityplayground.persistence.auth.Role;
+import me.weekbelt.securityplayground.persistence.auth.entity.Member;
+import me.weekbelt.securityplayground.persistence.auth.entity.MemberRole;
+import me.weekbelt.securityplayground.persistence.auth.entity.Role;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class MemberMapper {
